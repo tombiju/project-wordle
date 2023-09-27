@@ -1,5 +1,7 @@
 import React from 'react';
 
+import UserInput from '../GuessInput';
+
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
 
@@ -9,7 +11,18 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-  return <>Put a game here!</>;
+  const [guess, setGuess] = React.useState('');
+
+  function updateGuess(newGuess) {
+    return setGuess(newGuess);
+  }
+
+  return (
+    <>
+      {guess}
+      <UserInput updateGuess={updateGuess}></UserInput>
+    </>
+  );
 }
 
 export default Game;

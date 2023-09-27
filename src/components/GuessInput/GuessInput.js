@@ -1,16 +1,22 @@
 import React from 'react';
+import {
+  NUM_OF_GUESSES_ALLOWED,
+  NUM_OF_CHARACTERS_ALLOWED,
+} from '../../constants';
 
-function UserInput({ updateGuess }) {
+function UserInput({ guessNumber, updateGuess }) {
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        if (text.length < 5) {
+        if (text.length < NUM_OF_CHARACTERS_ALLOWED) {
           // extra error displaying in case html validation breaks as noted by Josh
           // I decided to handle it this way
-          setError('Your guess cannot be less than 5 characters in length.');
+          setError(
+            `Your guess cannot be less than ${NUM_OF_CHARACTERS_ALLOWED} characters in length.`
+          );
           return;
         }
         console.log({ text });
@@ -30,6 +36,12 @@ function UserInput({ updateGuess }) {
         maxLength={5}
         onChange={(event) => {
           event.preventDefault();
+          if (guessNumber >= NUM_OF_GUESSES_ALLOWED) {
+            setError(
+              `You cannot guess more than ${NUM_OF_GUESSES_ALLOWED} times.`
+            );
+            return;
+          }
           // remove characters that are not alphanumeric, capitalize entire string
           let inputValue = event.target.value
             .replace(/[^a-zA-Z]/g, '')
@@ -39,9 +51,9 @@ function UserInput({ updateGuess }) {
           // if(inputValue !== text){
           //   setText(inputValue);
           // }
-          if (inputValue.length > 5) {
+          if (inputValue.length > NUM_OF_CHARACTERS_ALLOWED) {
             setError(
-              'Your guess cannot be greater than 5 characters in length.'
+              `Your guess cannot be greater than ${NUM_OF_CHARACTERS_ALLOWED} characters in length.`
             );
           } else if (error.length > 0) {
             setError('');

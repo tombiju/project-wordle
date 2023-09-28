@@ -1,12 +1,13 @@
 import React from 'react';
 
-import UserInput from '../GuessInput';
+import GuessInput from '../GuessInput';
 import Guess from '../Guess/Guess';
 
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import { checkGuess } from '../../game-helpers';
+import Banner from '../Banner/Banner';
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -18,12 +19,18 @@ function Game() {
     Array(NUM_OF_GUESSES_ALLOWED).fill({})
   );
   const [guessNumber, setGuessNumber] = React.useState(0);
+  const [gameOver, setGameOver] = React.useState('');
   function updateGuess(newGuess) {
     const updatedGuesses = [...guesses];
     const validatedGuess = checkGuess(newGuess, answer);
     updatedGuesses[guessNumber] = validatedGuess;
     setGuesses(updatedGuesses);
     setGuessNumber(guessNumber + 1);
+    if (validatedGuess.every((guess) => guess.status === 'correct')) {
+      setGameOver('happy');
+    } else if (guessNumber + 1 >= NUM_OF_GUESSES_ALLOWED) {
+      setGameOver('sad');
+    }
   }
 
   return (
@@ -33,10 +40,18 @@ function Game() {
           <Guess key={crypto.randomUUID()} guess={guess}></Guess>
         ))}
       </div>
-      <UserInput
+      <GuessInput
         guessNumber={guessNumber}
         updateGuess={updateGuess}
-      ></UserInput>
+        disabled={gameOver.length !== 0}
+      ></GuessInput>
+      {gameOver.length !== 0 && (
+        <Banner
+          guessNumber={guessNumber}
+          gameOver={gameOver}
+          answer={answer}
+        ></Banner>
+      )}
     </>
   );
 }

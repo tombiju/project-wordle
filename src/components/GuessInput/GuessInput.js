@@ -4,7 +4,7 @@ import {
   NUM_OF_CHARACTERS_ALLOWED,
 } from '../../constants';
 
-function UserInput({ guessNumber, updateGuess }) {
+function GuessInput({ guessNumber, updateGuess, disabled }) {
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
   return (
@@ -61,10 +61,11 @@ function UserInput({ guessNumber, updateGuess }) {
           setText(inputValue.slice(0, 5));
         }}
         required
+        disabled={disabled}
       />
       {error.length > 0 && <div>{error}</div>}
     </form>
   );
 }
 
-export default UserInput;
+export default GuessInput;

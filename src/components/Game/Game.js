@@ -2,6 +2,7 @@ import React from 'react';
 
 import GuessInput from '../GuessInput';
 import Guess from '../Guess/Guess';
+import Keyboard from '../Keyboard/Keyboard';
 
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
@@ -14,15 +15,27 @@ const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
+function updateColorMap(validatedGuess, colorMap) {
+  const newColorMap = { ...colorMap };
+  validatedGuess.forEach((validation) => {
+    if (!(validation.letter in newColorMap)) {
+      newColorMap[validation.letter] = validation.status;
+    }
+  });
+  return newColorMap;
+}
+
 function Game() {
   const [guesses, setGuesses] = React.useState(
-    Array(NUM_OF_GUESSES_ALLOWED).fill({})
+    Array(NUM_OF_GUESSES_ALLOWED).fill([])
   );
+  const [colorMap, setColorMap] = React.useState({});
   const [guessNumber, setGuessNumber] = React.useState(0);
   const [gameOver, setGameOver] = React.useState('');
   function updateGuess(newGuess) {
     const updatedGuesses = [...guesses];
     const validatedGuess = checkGuess(newGuess, answer);
+    setColorMap(updateColorMap(validatedGuess, colorMap));
     updatedGuesses[guessNumber] = validatedGuess;
     setGuesses(updatedGuesses);
     setGuessNumber(guessNumber + 1);
@@ -52,6 +65,7 @@ function Game() {
           answer={answer}
         ></Banner>
       )}
+      <Keyboard colorMap={colorMap}></Keyboard>
     </>
   );
 }

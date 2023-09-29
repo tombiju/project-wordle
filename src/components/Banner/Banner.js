@@ -6,7 +6,11 @@ function Banner({ guessNumber, gameOver, answer }) {
       {gameOver === 'happy' ? (
         <p>
           <strong>Congratulations!</strong> Got it in
-          <strong>{guessNumber} guesses</strong>.
+          <strong>
+            {' '}
+            {`${guessNumber} ${guessNumber > 1 ? 'guesses' : 'guess'}`}
+          </strong>
+          .
         </p>
       ) : (
         <p>

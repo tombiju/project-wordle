@@ -1,4 +1,36 @@
-# Word Game
+# Tom's Word Game
+
+![Completed Game](completed_project.png)
+
+## My Completed Demos
+
+### Completed Project
+
+![Completed Project](completed_project.gif)
+
+### Exercise 1
+
+![Exercise 1](exercise_1.gif)
+
+### Exercises 2 and 3
+
+![Exercises 2 and 3](exercises_2_and_3.gif)
+
+### Exercise 4
+
+![Exercise 4](exercise_4.gif)
+
+### Exercise 5
+
+![Exercise 5](exercise_5.gif))
+
+### Visual Keyboard
+
+![Visual Keyboard](visual_keyboard.gif)
+
+### Restart Button
+
+![Restart Button](restart_button.gif)
 
 ## Joy of React, Project I
 
@@ -225,10 +257,7 @@ The user wins the game when their guessed word is identical to the `answer`. The
 
 ```html
 <div class="happy banner">
-  <p>
-    <strong>Congratulations!</strong> Got it in
-    <strong>3 guesses</strong>.
-  </p>
+  <p><strong>Congratulations!</strong> Got it in <strong>3 guesses</strong>.</p>
 </div>
 ```
 

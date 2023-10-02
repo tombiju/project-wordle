@@ -1,5 +1,7 @@
 export const sample = (arr) => {
-  return arr[Math.floor(Math.random() * arr.length)];
+  const randomSample = arr[Math.floor(Math.random() * arr.length)];
+  console.info({ randomSample });
+  return randomSample;
 };
 
 export const range = (start, end, step = 1) => {

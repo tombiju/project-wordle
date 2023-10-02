@@ -19,7 +19,6 @@ function GuessInput({ guessNumber, updateGuess, disabled }) {
           );
           return;
         }
-        console.log({ text });
         // jumped a bit ahead in my excitement and effort in this first exercise haha
         // I send the guess back up to the parent component and display it
         updateGuess(text);

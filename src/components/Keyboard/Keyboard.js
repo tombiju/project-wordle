@@ -1,22 +1,29 @@
 import React from 'react';
 
 const styles = {
+  keyboard: {
+    maxWidth: '400px',
+    margin: 'auto',
+  },
   row: {
     display: 'flex',
     justifyContent: 'center',
+    marginBottom: '5px',
   },
   keycap: {
-    width: '40px',
-    height: '40px',
+    margin: '3px',
+    borderRadius: '5px',
+    flex: '1',
+    minWidth: '50px',
+    height: '50px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: '20px',
     border: '1px solid #ccc',
-    margin: '5px',
     cursor: 'pointer',
-    backgroundColor: 'hsl(0deg 0% 90%)',
-    borderRadius: '5px',
+    color: 'white',
+    backgroundColor: 'hsl(0deg 0% 75%)',
   },
   correct: {
     background: 'hsl(150deg 70% 30%)',
@@ -56,7 +63,7 @@ const Keyboard = ({ colorMap }) => {
               key={crypto.randomUUID()}
               style={{ ...styles.keycap, ...styles[colorMap[letter]] }}
             >
-              {letter}
+              <strong>{letter}</strong>
             </div>
           ))}
         </div>

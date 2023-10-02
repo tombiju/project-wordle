@@ -13,7 +13,11 @@ function Guess({ guess = '' }) {
               Object.keys(guess).length ? ' ' + guess[index]['status'] : ''
             }`}
           >
-            {Object.keys(guess).length ? guess[index]['letter'] : ''}
+            {Object.keys(guess).length ? (
+              <strong>{guess[index]['letter']}</strong>
+            ) : (
+              ''
+            )}
           </span>
         );
       })}

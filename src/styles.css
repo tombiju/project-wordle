@@ -230,3 +230,23 @@ h1 {
     transform: translateY(0%);
   }
 }
+
+.banner-button {
+  margin: 10px;
+}
+
+.restart-button {
+  background-color: transparent; /* Set background to transparent */
+  border: 2px solid #fff; /* Add a white border */
+  border-radius: 5px; /* Add rounded corners */
+  color: #fff; /* Set text color to white */
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add transition for hover effect */
+}
+
+.restart-button:hover {
+  background-color: #fff; /* Change background color on hover */
+  color: #000; /* Change text color on hover */
+}

@@ -8,7 +8,8 @@ import { sample } from '../../utils';
 import { WORDS } from '../../data';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import { checkGuess } from '../../game-helpers';
-import Banner from '../Banner/Banner';
+import WonBanner from '../WonBanner/WonBanner';
+import LostBanner from '../LostBanner/LostBanner';
 
 const hierarchy = { correct: 2, misplaced: 1, incorrect: 0 };
 
@@ -34,7 +35,7 @@ function Game() {
   );
   const [colorMap, setColorMap] = React.useState({});
   const [guessNumber, setGuessNumber] = React.useState(0);
-  const [gameOver, setGameOver] = React.useState('');
+  const [gameStatus, setgameStatus] = React.useState('');
 
   function updateGuess(newGuess) {
     const updatedGuesses = [...guesses];
@@ -44,9 +45,9 @@ function Game() {
     setGuesses(updatedGuesses);
     setGuessNumber(guessNumber + 1);
     if (validatedGuess.every((guess) => guess.status === 'correct')) {
-      setGameOver('happy');
+      setgameStatus('won');
     } else if (guessNumber + 1 >= NUM_OF_GUESSES_ALLOWED) {
-      setGameOver('sad');
+      setgameStatus('lost');
     }
   }
 
@@ -56,28 +57,32 @@ function Game() {
     setGuesses(Array(NUM_OF_GUESSES_ALLOWED).fill([]));
     setColorMap({});
     setGuessNumber(0);
-    setGameOver('');
+    setgameStatus('');
   }
 
   return (
     <>
       <div className="guess-results">
-        {guesses.map((guess) => (
-          <Guess key={crypto.randomUUID()} guess={guess}></Guess>
+        {guesses.map((guess, index) => (
+          <Guess key={index} guess={guess}></Guess>
         ))}
       </div>
       <GuessInput
         guessNumber={guessNumber}
         updateGuess={updateGuess}
-        disabled={gameOver.length !== 0}
+        disabled={gameStatus.length !== 0}
       ></GuessInput>
-      {gameOver.length !== 0 && (
-        <Banner
+      {gameStatus === "won" && (
+        <WonBanner
           guessNumber={guessNumber}
-          gameOver={gameOver}
+          restartGame={restartGame}
+        ></WonBanner>
+      )}
+      {gameStatus === "lost" && (
+        <LostBanner
           answer={answer}
           restartGame={restartGame}
-        ></Banner>
+        ></LostBanner>
       )}
       <Keyboard colorMap={colorMap}></Keyboard>
     </>
